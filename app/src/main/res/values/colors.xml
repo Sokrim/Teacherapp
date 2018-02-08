@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorDefault">#0E408A</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorBrown">#bc8f42</color>
+    <color name="colorGreen">#00bf33</color>
+    <color name="colorPurple">#7c4dff</color>
+    <color name="colorRed">#ec150e</color>
+    <color name="colorLightBlue">#10b9d7</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlue">#2c45e7</color>
+    <color name="colorSky">#00ffe1</color>
+    <color name="colorYellow">#ffe11a</color>
+    <color name="color_light_green">#11ff04</color>
+    <color name="color_grey">#c9c9c9</color>
+
+   <color name="album_title">#4c4c4c</color>
+
+    <color name="actionBar">#0D07C2</color>
+</resources>

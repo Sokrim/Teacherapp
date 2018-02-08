@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:gravity="center_horizontal"
+    >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/yesNo"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/colorGreen"
+                android:text="@string/YesNo"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/agreeDisagree"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:background="@color/colorGreen"
+                android:text="@string/agree_disagree"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/colorWhite"
+                />
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="0dp"
+                android:background="@color/colorGreen"
+                android:text="@string/TwoChoice"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/colorGreen"
+                android:text="@string/ThreeChoice"
+                android:textColor="@color/colorWhite"
+                />
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/colorGreen"
+                android:text="@string/FourChoice"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/colorGreen"
+                android:text="@string/FiveChoice"
+                android:textColor="@color/colorWhite"
+                />
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/colorGreen"
+                android:text="@string/CommentOnly"
+                android:textColor="@color/colorWhite"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/colorGreen"
+                android:text="@string/YesNoComment"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/colorGreen"
+                android:text="@string/agree_disagree_comment"
+                android:textColor="@color/colorWhite"
+                />
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/colorGreen"
+                android:text="@string/TwoChoice_Comment"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/colorGreen"
+                android:text="@string/ThreeChoice_Comment"
+                android:textColor="@color/colorWhite"
+                />
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/colorGreen"
+                android:text="@string/FourChoice_Comment"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/colorGreen"
+                android:text="@string/FiveChoice_Comment"
+                android:textColor="@color/colorWhite"
+                />
+        </LinearLayout>
+
+
+</LinearLayout>
