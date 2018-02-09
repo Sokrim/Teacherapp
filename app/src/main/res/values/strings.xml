@@ -32,6 +32,16 @@
     <string name="FiveChoice">Five Choices</string>
     <string name="FiveChoice_Comment">Five Choices \n *Comment</string>
     <string name="CommentOnly">Comment Only</string>
+    <string name="edit_questionnairesInfo">Edit Questionnaires Information</string>
+    <string name="edit_question">Edit Question</string>
+    <string name="CopyQuestion">Copy of the Questionnaires</string>
+    <string name="downloadCSV">Download answer CSV</string>
+    <string name="reset">Reset submission status</string>
+    <string name="deleteQuestionnaires">Delete Questionnaires</string>
+    <string name="student_account">Student Account</string>
+    <string name="news">News</string>
+    <string name="attendance_tracking">Attendance Tracking</string>
+
 
     <string-array name="quick_quest">
         <item>Yes/No</item>
@@ -47,6 +57,18 @@
         <item>Five Choices</item>
         <item>Five Choices \n *Comment</item>
         <item>Comment Only</item>
+    </string-array>
+
+    <string-array name="displayQuestionnaires">
+        <item>Now Public</item>
+        <item>Deadline of Submission</item>
+        <item>Non-disclosure</item>
+    </string-array>
+
+    <string-array name="guest">
+        <item>No guest</item>
+        <item>Anonymous</item>
+        <item>Registered</item>
     </string-array>
 
 </resources>

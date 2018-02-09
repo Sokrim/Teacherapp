@@ -15,8 +15,10 @@
     <color name="colorYellow">#ffe11a</color>
     <color name="color_light_green">#11ff04</color>
     <color name="color_grey">#c9c9c9</color>
+    <color name="colorDarkGreen">#068340</color>
 
    <color name="album_title">#4c4c4c</color>
+
 
     <color name="actionBar">#0D07C2</color>
 </resources>

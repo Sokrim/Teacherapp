@@ -24,6 +24,9 @@
 
         <activity android:name=".DemoActivity"
             android:parentActivityName=".Activity_Question"></activity>
+
+        <activity android:name=".YesNo_Chart"
+            android:parentActivityName=".Activity_Question"></activity>
     </application>
 
 </manifest>

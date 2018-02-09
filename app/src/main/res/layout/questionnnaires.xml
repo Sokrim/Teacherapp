@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+        android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/myCourse_toolbar"
@@ -12,11 +19,44 @@
         android:background="@color/colorDefault"
         android:theme="@style/AppTheme.AppBarOverlay"/>
 
+
     <!-- Row 1 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <android.support.v7.widget.CardView
+            android:id="@+id/attendanceTracking"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:layout_width="120dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="10dp" android:focusable="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@color/colorLightBlue"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:src="@drawable/tasks"
+                    android:padding="10dp"
+                    tools:ignore="ContentDescription"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/attendance_tracking"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorWhite"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
         <android.support.v7.widget.CardView
             android:id="@+id/question_card"
             android:foreground="?android:attr/selectableItemBackground"
@@ -82,6 +122,18 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
+
+    </LinearLayout>
+
+    <!-- Row 2 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+
+
         <android.support.v7.widget.CardView
             android:id="@+id/exercises_card"
             android:foreground="?android:attr/selectableItemBackground"
@@ -89,11 +141,12 @@
             android:layout_width="120dp"
             android:layout_height="140dp"
             android:layout_marginTop="10dp" android:focusable="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:background="@color/colorLightBlue"
+                android:background="@color/colorRed"
                 android:orientation="vertical">
 
                 <ImageView
@@ -110,15 +163,10 @@
                     android:text="@string/exercises"
                     android:textStyle="bold"
                     android:textColor="@color/colorWhite"/>
+
             </LinearLayout>
         </android.support.v7.widget.CardView>
-    </LinearLayout>
 
-    <!-- Row 2 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
         <android.support.v7.widget.CardView
             android:id="@+id/material_card"
             android:foreground="?android:attr/selectableItemBackground"
@@ -130,7 +178,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:background="@color/colorGreen"
+                android:background="@color/colorBlue"
                 android:orientation="vertical">
 
                 <ImageView
@@ -140,19 +188,16 @@
                     android:padding="10dp"
                     tools:ignore="ContentDescription"
                     />
-
                 <TextView
-                    android:layout_width="110dp"
-                    android:layout_height="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:text="@string/material"
+                    android:textStyle="bold"
                     android:textSize="12sp"
-                    android:textColor="@color/colorWhite"
-                    android:textStyle="bold" />
-
+                    android:textColor="@color/colorWhite"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
-
         <android.support.v7.widget.CardView
             android:id="@+id/board_card"
             android:foreground="?android:attr/selectableItemBackground"
@@ -160,12 +205,11 @@
             android:layout_width="120dp"
             android:layout_height="140dp"
             android:layout_marginTop="10dp" android:focusable="true">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:background="@color/colorRed"
+                android:background="@color/colorBrown"
                 android:orientation="vertical">
 
                 <ImageView
@@ -185,6 +229,16 @@
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+
+
+    <!-- Row 3 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
 
         <android.support.v7.widget.CardView
             android:id="@+id/assignments_card"
@@ -193,11 +247,12 @@
             android:layout_width="120dp"
             android:layout_height="140dp"
             android:layout_marginTop="10dp" android:focusable="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:background="@color/colorBlue"
+                android:background="@color/colorSky"
                 android:orientation="vertical">
 
                 <ImageView
@@ -214,17 +269,10 @@
                     android:text="@string/assignments"
                     android:textStyle="bold"
                     android:textColor="@color/colorWhite"/>
+
             </LinearLayout>
         </android.support.v7.widget.CardView>
-    </LinearLayout>
 
-
-
-    <!-- Row 3 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
         <android.support.v7.widget.CardView
             android:id="@+id/profile_card"
             android:foreground="?android:attr/selectableItemBackground"
@@ -236,7 +284,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:background="@color/colorBrown"
+                android:background="@color/colorPurple"
                 android:orientation="vertical">
 
                 <ImageView
@@ -253,7 +301,6 @@
                     android:text="@string/profile"
                     android:textStyle="bold"
                     android:textColor="@color/colorWhite"/>
-
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -264,12 +311,11 @@
             android:layout_width="120dp"
             android:layout_height="140dp"
             android:layout_marginTop="10dp" android:focusable="true">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:background="@color/colorSky"
+                android:background="@color/colorGreen"
                 android:orientation="vertical">
 
                 <ImageView
@@ -289,9 +335,50 @@
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+    <!-- Row 3 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
 
         <android.support.v7.widget.CardView
-            android:id="@+id/attendance_card"
+            android:id="@+id/news_card"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:layout_width="120dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="10dp" android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@color/colorDarkGreen"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:src="@drawable/news"
+                    android:padding="10dp"
+                    tools:ignore="ContentDescription"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/news"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorWhite"/>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/studentAccount_card"
             android:foreground="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:layout_width="120dp"
@@ -301,13 +388,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:background="@color/colorPurple"
+                android:background="@color/actionBar"
                 android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
-                    android:src="@drawable/tasks"
+                    android:src="@drawable/student"
                     android:padding="10dp"
                     tools:ignore="ContentDescription"
                     />
@@ -315,14 +402,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/attendance_history"
+                    android:text="@string/student_account"
                     android:textStyle="bold"
-                    android:textSize="12sp"
                     android:textColor="@color/colorWhite"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>
+    </LinearLayout>
 
-
-
-</LinearLayout>
+</ScrollView>
