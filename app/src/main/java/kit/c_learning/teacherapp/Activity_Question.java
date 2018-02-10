@@ -94,38 +94,6 @@ public class Activity_Question extends AppCompatActivity {
 //            e.printStackTrace();
 //        }
 
-//        HttpURLConnection httpURLConnection;
-//        BufferedReader reader;
-//        try {
-//            URL url = new URL("https://kit.c-learning.jp/t/ajax/quest/Question");
-//            httpURLConnection=(HttpURLConnection) url.openConnection();
-//            httpURLConnection.connect();
-//
-//            InputStream inputStream = httpURLConnection.getInputStream();
-//            reader = new BufferedReader(new InputStreamReader(inputStream));
-//
-//            StringBuffer buffer = new StringBuffer();
-//            String line = "";
-//            while ((line = reader.readLine()) !=null){
-//                buffer.append(line);
-//            }
-//
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-//        try {
-//            Request request = Bridge
-//                    .get("https://kit.c-learning.jp/t/ajax/quest/Question")
-//                    .request();
-//
-//            Log.d("mer request =--------------",request.toString());
-//        } catch (BridgeException e) {
-//            e.printStackTrace();
-//        }
-
 
         //When click on quick questionnaires button & create questionnaires
         createButton = findViewById(R.id.create_btn);
@@ -145,75 +113,9 @@ public class Activity_Question extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("LongLogTag")
-    public void makePostRequest(String stringUrl)throws IOException {
-        Log.e("==============================", stringUrl);
-        URL url = new URL(stringUrl);
-        HttpURLConnection uc = (HttpURLConnection) url.openConnection();
-        String line;
-        StringBuilder jsonString = new StringBuilder();
-
-        uc.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-
-        uc.setRequestMethod("GET");
-        uc.setDoInput(true);
-        uc.setInstanceFollowRedirects(false);
-        uc.connect();
-        OutputStreamWriter writer = new OutputStreamWriter(uc.getOutputStream(), "UTF-8");
-
-        JSONObject object = new JSONObject();
-        try {
-            object.put("qbTitle", value);
-            object.put("qbID", 5);
-            Log.d("mer qbtitle-------------------------",value.toString());
 
 
-        } catch (Exception ex) {
-            Log.i("############## ", ex.toString());
-        }
-        try {
-//            trywriter.write(getPostDataString(object));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        writer.close();
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(uc.getInputStream()));
-            while ((line = br.readLine()) != null) {
-                jsonString.append(line);
-            }
-            br.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        uc.disconnect();
-    }
 
-//    @SuppressLint("LongLogTag")
-//    public void requestApi(String stringUrl){
-//        //request api
-//        String myUrl = "https://kit.c-learning.jp/t/ajax/quest/Question";
-//        JSONArray dataJson;
-//        String result = null;
-//        HttpGetRequest httpGetRequest = new HttpGetRequest();
-//
-//        try {
-//            result = httpGetRequest.execute(myUrl).get();
-//            Log.i("log mer result================ ",result);
-//            dataJson = new JSONArray(result);
-//            Log.i("this is jsonarray============",dataJson.toString());
-//            value = new String[dataJson.length()];
-//
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//    }
 
     private void prepareQuestion() {
         Question a = new Question ("Now Public", "[Q] Yes/No", "2018/02/09 10:20", "Non-disclosure", "Anonymous", 2);
