@@ -6,12 +6,23 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.support.v7.widget.Toolbar;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.interfaces.datasets.IPieDataSet;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Created by sokrim on 2/9/2018.
  */
 
 public class YesNo_Chart extends AppCompatActivity {
+    private PieChart pieChart;
+    private PieData pieData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,5 +45,28 @@ public class YesNo_Chart extends AppCompatActivity {
                 getResources().getStringArray(R.array.guest));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         guestSpinner.setAdapter(myAdapter2);
+
+        pieChart = findViewById(R.id.piechart);
+        pieData = new PieData(getXvalue(),getYvalue());
+        pieChart.setData(pieData);
+
+
+    }
+
+    private IPieDataSet getYvalue() {
+        PieDataSet pieDataSet ;
+
+        ArrayList<Entry> entries = new ArrayList<>();
+        Entry entry = new Entry(100,0);
+        entries.add(entry);
+
+        pieDataSet = new PieDataSet(entries,"yes");
+        return pieDataSet;
+    }
+
+    private List<String> getXvalue() {
+        ArrayList<String> xvalue = new ArrayList<>();
+        xvalue.add("Student");
+        return xvalue;
     }
 }

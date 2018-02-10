@@ -41,8 +41,8 @@ public class Questionnaires extends AppCompatActivity implements View.OnClickLis
 
         HttpRequestAsync myHttp = new HttpRequestAsync(headers);
         try {
-            String text= myHttp.execute("https://reqres.in/api/users/2", "GET").get();
-            System.out.println("========================================= " + text);
+            String text= myHttp.execute("https://kit.c-learning.jp/t/ajax/quest/Question", "GET").get();
+            System.out.println("=========================================123 " + text);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

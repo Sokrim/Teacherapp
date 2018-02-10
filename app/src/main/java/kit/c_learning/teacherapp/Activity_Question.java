@@ -1,22 +1,45 @@
 package kit.c_learning.teacherapp;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.support.v4.util.ArrayMap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.afollestad.bridge.Bridge;
+import com.afollestad.bridge.BridgeException;
+import com.afollestad.bridge.Request;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 public class Activity_Question extends AppCompatActivity {
@@ -29,7 +52,9 @@ public class Activity_Question extends AppCompatActivity {
     private RecyclerView recyclerView;
     private QuestionAdapter adapter;
     private List<Question> questionList;
+    String[] value = null;
 
+    @SuppressLint("LongLogTag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +76,55 @@ public class Activity_Question extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        prepareQuestion();
+//        prepareQuestion();
+
+        //Some url endpoint that you may have
+//        String myUrl = "https://kit.c-learning.jp/t/ajax/quest/Question";
+//        //String to place our result in
+//        String result;
+//        //Instantiate new instance of our class
+//        HttpGetRequest getRequest = new HttpGetRequest();
+//        //Perform the doInBackground method, passing in our url
+//        try {
+//            result = getRequest.execute(myUrl).get();
+//            Log.d("mer result-------------",result);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+
+//        HttpURLConnection httpURLConnection;
+//        BufferedReader reader;
+//        try {
+//            URL url = new URL("https://kit.c-learning.jp/t/ajax/quest/Question");
+//            httpURLConnection=(HttpURLConnection) url.openConnection();
+//            httpURLConnection.connect();
+//
+//            InputStream inputStream = httpURLConnection.getInputStream();
+//            reader = new BufferedReader(new InputStreamReader(inputStream));
+//
+//            StringBuffer buffer = new StringBuffer();
+//            String line = "";
+//            while ((line = reader.readLine()) !=null){
+//                buffer.append(line);
+//            }
+//
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+//        try {
+//            Request request = Bridge
+//                    .get("https://kit.c-learning.jp/t/ajax/quest/Question")
+//                    .request();
+//
+//            Log.d("mer request =--------------",request.toString());
+//        } catch (BridgeException e) {
+//            e.printStackTrace();
+//        }
 
 
         //When click on quick questionnaires button & create questionnaires
@@ -59,7 +132,7 @@ public class Activity_Question extends AppCompatActivity {
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Activity_Question.this,Questionnaires.class);
+                Intent intent = new Intent(Activity_Question.this, Questionnaires.class);
                 startActivity(intent);
 
             }
@@ -67,11 +140,80 @@ public class Activity_Question extends AppCompatActivity {
 
         quickButton = findViewById(R.id.quick_btn);
         quick_layout = findViewById(R.id.quick_layout);
-        if (quick_layout != null)
-        {
+        if (quick_layout != null) {
             openQuickButton();
         }
     }
+
+    @SuppressLint("LongLogTag")
+    public void makePostRequest(String stringUrl)throws IOException {
+        Log.e("==============================", stringUrl);
+        URL url = new URL(stringUrl);
+        HttpURLConnection uc = (HttpURLConnection) url.openConnection();
+        String line;
+        StringBuilder jsonString = new StringBuilder();
+
+        uc.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+
+        uc.setRequestMethod("GET");
+        uc.setDoInput(true);
+        uc.setInstanceFollowRedirects(false);
+        uc.connect();
+        OutputStreamWriter writer = new OutputStreamWriter(uc.getOutputStream(), "UTF-8");
+
+        JSONObject object = new JSONObject();
+        try {
+            object.put("qbTitle", value);
+            object.put("qbID", 5);
+            Log.d("mer qbtitle-------------------------",value.toString());
+
+
+        } catch (Exception ex) {
+            Log.i("############## ", ex.toString());
+        }
+        try {
+//            trywriter.write(getPostDataString(object));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        writer.close();
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+            while ((line = br.readLine()) != null) {
+                jsonString.append(line);
+            }
+            br.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        uc.disconnect();
+    }
+
+//    @SuppressLint("LongLogTag")
+//    public void requestApi(String stringUrl){
+//        //request api
+//        String myUrl = "https://kit.c-learning.jp/t/ajax/quest/Question";
+//        JSONArray dataJson;
+//        String result = null;
+//        HttpGetRequest httpGetRequest = new HttpGetRequest();
+//
+//        try {
+//            result = httpGetRequest.execute(myUrl).get();
+//            Log.i("log mer result================ ",result);
+//            dataJson = new JSONArray(result);
+//            Log.i("this is jsonarray============",dataJson.toString());
+//            value = new String[dataJson.length()];
+//
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//    }
 
     private void prepareQuestion() {
         Question a = new Question ("Now Public", "[Q] Yes/No", "2018/02/09 10:20", "Non-disclosure", "Anonymous", 2);
@@ -125,7 +267,15 @@ public class Activity_Question extends AppCompatActivity {
                 });
 
                 Button myYeoNoCommentButton = findViewById(R.id.yesNoComment);
-                myYeoNoCommentButton.setOnClickListener(this);
+               myYeoNoCommentButton.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       Intent intent = new Intent(Activity_Question.this,ChartActivity.class);
+                       startActivity(intent);
+                       finish();
+                   }
+               });
+
 
                 closeQuickButton();
             }
