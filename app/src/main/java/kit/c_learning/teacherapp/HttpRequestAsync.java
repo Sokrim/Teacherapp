@@ -1,6 +1,5 @@
 package kit.c_learning.teacherapp;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -26,8 +25,8 @@ import java.util.Iterator;
 
 @TargetApi(Build.VERSION_CODES.KITKAT)
 public class HttpRequestAsync extends   AsyncTask<String, Void, String> {
-    private static final int READ_TIMEOUT = 1500;
-    private static final int CONNECTION_TIMEOUT = 1500;
+    private static final int READ_TIMEOUT = 3000;
+    private static final int CONNECTION_TIMEOUT = 3000;
     private String result;
     private ArrayMap<String, String> headers = new ArrayMap<>();
     private ArrayMap<String, String> data = new ArrayMap<>();
@@ -41,10 +40,8 @@ public class HttpRequestAsync extends   AsyncTask<String, Void, String> {
         this(header_params, null);
     }
 
-    @SuppressLint("LongLogTag")
     HttpRequestAsync(ArrayMap<String, String> header_params, ArrayMap<String, String> data_params){
 
-        Log.i("_______________HTTP________HEADER________", header_params.toString());
 
         if (header_params != null && !header_params.isEmpty()){
             for (ArrayMap.Entry<String, String> header : header_params.entrySet()){
@@ -107,8 +104,8 @@ public class HttpRequestAsync extends   AsyncTask<String, Void, String> {
 
             //Set methods and timeouts
             connection.setRequestMethod(method);
-            connection.setReadTimeout(READ_TIMEOUT);
-            connection.setConnectTimeout(CONNECTION_TIMEOUT);
+//            connection.setReadTimeout(READ_TIMEOUT);
+//            connection.setConnectTimeout(CONNECTION_TIMEOUT);
             // Set post data if has
             if(!data.isEmpty()){
                 try{
@@ -151,15 +148,33 @@ public class HttpRequestAsync extends   AsyncTask<String, Void, String> {
                 in.close();
                 return sb.toString();
 
+            }else if (responseCode == HttpURLConnection.HTTP_NOT_ACCEPTABLE){
+                BufferedReader in = new BufferedReader(new
+                        InputStreamReader(
+                        connection.getErrorStream()));
+
+                StringBuffer sb = new StringBuffer("");
+                String line;
+
+                while((line = in.readLine()) != null) {
+
+                    sb.append(line);
+                    break;
+                }
+
+                in.close();
+                return sb.toString();
             }
             else {
+                Log.e("++++++++++++++++= ", String.valueOf(responseCode));
                 return "false : " + responseCode;
             }
         }
         catch(IOException e){
             e.printStackTrace();
+            Log.e("errrorr------------",e.toString());
             Log.e(HttpRequestAsync.class.getSimpleName(), "HttpRequestUrl Catch Exception " + e.getMessage());
-            this.result = "fail";
+            this.result = "failed";
         }
 
         return this.result;
