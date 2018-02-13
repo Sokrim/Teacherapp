@@ -77,7 +77,7 @@
                 android:text="@string/forgotPW"
                 android:textAlignment="center"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textColor="@color/colorPrimaryDark1" />
 
             <Button android:id="@+id/loginBtn"
                 android:layout_width="match_parent"
@@ -85,7 +85,7 @@
                 android:text="@string/login"
                 android:onClick="login"
                 android:focusable="true"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/colorPrimaryDark1"
                 android:layout_marginTop="20dp"
                 android:textColor="@android:color/white"
                 />
@@ -98,7 +98,7 @@
                 android:text="@string/signUp"
                 android:textAlignment="center"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textColor="@color/colorPrimaryDark1" />
 
         </LinearLayout>
 

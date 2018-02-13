@@ -25,14 +25,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                >
+                <LinearLayout
+                    android:id="@+id/edit_questIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:layout_alignParentEnd="true">
+                    <ImageView
+                        android:layout_width="@dimen/ic_album_overflow_width"
+                        android:layout_height="@dimen/ic_album_overflow_height"
+                        android:scaleType="centerCrop"
+                        android:layout_alignParentEnd="true"
+                        android:clickable="true"
+                        android:src="@drawable/ic_dots"
+                        android:contentDescription="TODO"/>
 
-                <ImageView
+                </LinearLayout>
+
+              <!-->  <ImageView
                     android:id="@+id/edit_questIcon"
                     android:layout_width="@dimen/ic_album_overflow_width"
                     android:layout_height="@dimen/ic_album_overflow_height"
                     android:scaleType="centerCrop"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/ic_dots" android:contentDescription="TODO"/>
+                    android:clickable="true"
+                    android:src="@drawable/ic_dots"
+                    android:contentDescription="TODO"/> <-->
 
                 <TextView
                     android:id="@+id/display_Public"
@@ -40,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
-                    android:hint="Now Public"
+                    android:hint="Public"
                     android:layout_marginStart="10dp"
                     android:textColor="@color/colorLightBlue" android:focusable="true"/>
 
@@ -61,6 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title_layout"
                 android:hint="[Q]Yes/No C programming"
+                android:clickable="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:textColor="@color/album_title"
@@ -108,7 +127,7 @@
                     android:id="@+id/openTotalResult"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Now Public"
+                    android:hint="Public"
                     android:layout_marginEnd="5dp"
                     android:layout_toStartOf="@id/Submission"
                     android:textColor="@color/colorLightBlue"
