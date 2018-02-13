@@ -35,7 +35,7 @@ public class Activity_Question extends AppCompatActivity {
     private RecyclerView recyclerView;
     private QuestionAdapter adapter;
     private List<Question> questionList;
-    String[] questionTitle = null,publishDate=null;
+    String[] questionTitle = null,publishDate=null,qbID = null;
     JSONObject jsonObject =null,success=null;
 
     @SuppressLint("LongLogTag")
@@ -61,50 +61,8 @@ public class Activity_Question extends AppCompatActivity {
 
 
         //request api
+        requestApi();
 
-        android.util.ArrayMap<String, String> headers = new android.util.ArrayMap<>();
-        android.util.ArrayMap<String, String> data = new android.util.ArrayMap<>();
-
-        HttpRequestAsync myHttp = new HttpRequestAsync(headers);
-        try {
-            String text= myHttp.execute("https://kit.c-learning.jp/t/ajax/quest/Question", "GET").get();
-            System.out.println("=========================================123 " + text);
-
-            jsonObject = new JSONObject(text);
-            Log.d("json object----------------",jsonObject.toString());
-
-            JSONArray jsonArray = jsonObject.getJSONArray("data");
-            Log.d("mer json array¥--------------",jsonArray.toString());
-
-            questionTitle = new String[jsonArray.length()];
-            publishDate = new String[jsonArray.length()];
-            Log.d("langht of the value=========", String.valueOf(questionTitle.length));
-
-            for(int i = 0; i< jsonArray.length(); i++){
-                JSONObject row = jsonArray.getJSONObject(i);
-                questionTitle[i] = row.getString("qbTitle");
-                publishDate[i] =row.getString("qbDate");
-                Log.d("string value ---------------", questionTitle[i]);
-                Log.d("string value ---------------", publishDate[i]);
-                Log.d("lenght of value-------------", String.valueOf(questionTitle[i].length()));
-                prepareQuestion(questionTitle[i],publishDate[i]);
-
-//                for(int j =0;j<value[i].length();j++){
-//                    Log.d("value of length^^^^^^^^", String.valueOf(value.length));
-//                    prepareQuestion(value[i]);
-//                }
-            }
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            Log.e("eerorror1---------",e.toString());
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-            Log.e("eerorror2---------",e.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Log.e("eerorror3---------",e.toString());
-        }
 
         //When click on quick questionnaires button & create questionnaires
         createButton = findViewById(R.id.create_btn);
@@ -128,6 +86,56 @@ public class Activity_Question extends AppCompatActivity {
         Question a = new Question ("Now Public", questionTitle, publishDate, "Non-disclosure", "Anonymous", 2);
         questionList.add(a);
         adapter.notifyDataSetChanged();
+    }
+
+    @SuppressLint("LongLogTag")
+    private void requestApi(){
+        android.util.ArrayMap<String, String> headers = new android.util.ArrayMap<>();
+        android.util.ArrayMap<String, String> data = new android.util.ArrayMap<>();
+
+        HttpRequestAsync myHttp = new HttpRequestAsync(headers);
+        try {
+            String text= myHttp.execute("https://kit.c-learning.jp/t/ajax/quest/Question", "GET").get();
+            System.out.println("=========================================123 " + text);
+
+            jsonObject = new JSONObject(text);
+            Log.d("json object----------------",jsonObject.toString());
+
+            JSONArray jsonArray = jsonObject.getJSONArray("data");
+            Log.d("mer json array¥--------------",jsonArray.toString());
+
+            questionTitle = new String[jsonArray.length()];
+            publishDate = new String[jsonArray.length()];
+            qbID = new String[jsonArray.length()];
+            Log.d("langht of the value=========", String.valueOf(questionTitle.length));
+
+            for(int i = 0; i< jsonArray.length(); i++){
+                JSONObject row = jsonArray.getJSONObject(i);
+                questionTitle[i] = row.getString("qbTitle");
+                publishDate[i] =row.getString("qbDate");
+                qbID[i] = row.getString("qbID");
+                Log.d("view qbID=======================",qbID[i]);
+//                Log.d("string value ---------------", questionTitle[i]);
+//                Log.d("string value ---------------", publishDate[i]);
+//                Log.d("lenght of value-------------", String.valueOf(questionTitle[i].length()));
+                prepareQuestion(questionTitle[i],publishDate[i]);
+
+//                for(int j =0;j<value[i].length();j++){
+//                    Log.d("value of length^^^^^^^^", String.valueOf(value.length));
+//                    prepareQuestion(value[i]);
+//                }
+            }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Log.e("eerorror1---------",e.toString());
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            Log.e("eerorror2---------",e.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e("eerorror3---------",e.toString());
+        }
     }
 
     private int dpToPx(int dp) {

@@ -61,6 +61,8 @@ public class YesNo_Chart extends AppCompatActivity {
         guestSpinner.setAdapter(myAdapter2);
 
    ///request api
+
+
         ArrayMap<String, String> headers = new ArrayMap<>();
         ArrayMap<String, String> data = new ArrayMap<>();
         data.put("qb","qb04874738");
@@ -94,6 +96,10 @@ public class YesNo_Chart extends AppCompatActivity {
                 per[i] = row.getString("per");
                 Log.d("length of num[i]-------------",num[i]);
 
+                num[1] = row.getString("num");
+                num[2] = row.getString("num");
+                Log.d(num[1],num[2]);
+
 
 //                Log.d("lenght of value-------------", String.valueOf(answerID[i].length()));
 //                prepareQuestion(questionTitle[i],publishDate[i]);
@@ -122,8 +128,8 @@ public class YesNo_Chart extends AppCompatActivity {
         pieChart.setTransparentCircleRadius(61f);
 
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(75f,"YES"));
-        entries.add(new PieEntry(25f,"NO"));
+            entries.add(new PieEntry(Float.parseFloat(per[1]),"NO"));
+            entries.add(new PieEntry(Float.parseFloat(per[2]),"YES"));
 
         pieChart.animateY(1000, Easing.EasingOption.EaseInCubic);
 
