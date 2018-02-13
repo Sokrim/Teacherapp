@@ -2,13 +2,25 @@ package kit.c_learning.teacherapp;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.ArrayMap;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import java.util.ArrayList;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
@@ -36,13 +48,15 @@ public class YesNo_Chart extends AppCompatActivity {
     JSONObject jsonObject =null,success1=null,success2= null,success3=null;
     int i ;
     @SuppressLint("LongLogTag")
+
+    EditText updateQuestion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.yesno_chart);
 
         Toolbar resultToolbar = findViewById(R.id.totalResult_toolbar);
-
         setSupportActionBar(resultToolbar);
         getSupportActionBar().setTitle("Total Result");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -50,12 +64,12 @@ public class YesNo_Chart extends AppCompatActivity {
         Spinner displaySpinner = findViewById(R.id.display_Questionnaires);
         Spinner guestSpinner = findViewById(R.id.guest);
 
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(YesNo_Chart.this,android.R.layout.simple_list_item_1,
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(YesNo_Chart.this, android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.displayQuestionnaires));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         displaySpinner.setAdapter(myAdapter);
 
-        ArrayAdapter<String> myAdapter2 = new ArrayAdapter<String>(YesNo_Chart.this,android.R.layout.simple_list_item_1,
+        ArrayAdapter<String> myAdapter2 = new ArrayAdapter<String>(YesNo_Chart.this, android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.guest));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         guestSpinner.setAdapter(myAdapter2);
@@ -143,5 +157,14 @@ public class YesNo_Chart extends AppCompatActivity {
         pieData.setValueTextColor(Color.YELLOW);
 
         pieChart.setData(pieData);
+
+        updateQuestion = findViewById(R.id.updateQuestion);
+        updateQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateQuestion.setCursorVisible(true);
+                updateQuestion.setHint("");
+            }
+        });
     }
 }

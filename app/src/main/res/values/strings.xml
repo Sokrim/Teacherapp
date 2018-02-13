@@ -41,6 +41,7 @@
     <string name="student_account">Student Account</string>
     <string name="news">News</string>
     <string name="attendance_tracking">Attendance Tracking</string>
+    <string name="enteringQuestion">Please Select the answer to the question</string>
 
 
     <string-array name="quick_quest">
