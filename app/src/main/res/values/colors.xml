@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimaryDark">#11B272</color>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorDefault">#0E408A</color>
+    <color name="colorPrimaryDark1">#303F9F</color>
+    <color name="colorDefault1">#0E408A</color>
+    <color name="colorDefault">#11B272</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorBrown">#bc8f42</color>
     <color name="colorGreen">#00bf33</color>
@@ -18,7 +20,6 @@
     <color name="colorDarkGreen">#068340</color>
 
    <color name="album_title">#4c4c4c</color>
-
 
     <color name="actionBar">#0D07C2</color>
 </resources>

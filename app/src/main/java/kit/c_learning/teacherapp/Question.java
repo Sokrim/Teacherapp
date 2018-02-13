@@ -8,9 +8,6 @@ class Question {
     private String displayPublic, title_quickQuestion,registeredDate, openTotalResult, Guest;
     private int submission;
 
-    public Question(){
-
-    }
 
     public Question(String displayPublic, String title_quickQuestion, String registeredDate, String openTotalResult, String Guest, int submission){
         this.displayPublic = displayPublic;

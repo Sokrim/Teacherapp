@@ -1,6 +1,7 @@
 package kit.c_learning.teacherapp;
 
-import android.app.Activity;
+
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
@@ -12,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -22,8 +24,8 @@ import java.util.List;
 public class Activity_Question extends AppCompatActivity {
 
     Toolbar questionnairesToolbar;
-    Button quickButton, createButton;
-    LinearLayout quick_layout;
+    Button quickButton, yesNoButton, yesNoButtonComment;
+  //  LinearLayout quick_layout;
 
 
     private RecyclerView recyclerView;
@@ -43,7 +45,7 @@ public class Activity_Question extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
 
         questionList = new ArrayList<>();
-        adapter = new QuestionAdapter(questionList);
+        adapter = new QuestionAdapter(this,questionList);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -55,38 +57,54 @@ public class Activity_Question extends AppCompatActivity {
 
 
         //When click on quick questionnaires button & create questionnaires
-        createButton = findViewById(R.id.create_btn);
-        createButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Activity_Question.this,Questionnaires.class);
-                startActivity(intent);
-
-            }
-        });
 
         quickButton = findViewById(R.id.quick_btn);
-        quick_layout = findViewById(R.id.quick_layout);
+        quickButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayQuickDialog();
+            }
+        });
+       /* quick_layout = findViewById(R.id.quick_layout);
         if (quick_layout != null)
         {
             openQuickButton();
-        }
+        }*/
+    }
+
+
+    private  void displayQuickDialog(){
+        Dialog d = new Dialog(this);
+        d.setContentView(R.layout.test);
+        d.show();
+        Window window = d.getWindow();
+        window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+
+        yesNoButton = d.findViewById(R.id.yesNo);
+        yesNoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Activity_Question.this, YesNo_Chart.class);
+                startActivity(i);
+            }
+        });
     }
 
     private void prepareQuestion() {
         Question a = new Question ("Now Public", "[Q] Yes/No", "2018/02/09 10:20", "Non-disclosure", "Anonymous", 2);
         questionList.add(a);
 
-        a = new Question ("Non-disclosure", "[Q] Agree/Disagree", "2018/02/08 09:20", "Now Public", "", 0);
+        a = new Question ("Non-disclosure", "[Q] Agree/Disagree", "2018/02/12 09:20", "Now Public", "", 0);
         questionList.add(a);
 
         a = new Question ("Non-disclosure", "[Q] Agree/Disagree C- learning is good", "2018/02/08 09:20", "Now Public", "", 0);
         questionList.add(a);
 
-        a = new Question ("Now Public", "[Q] Agree/Disagree*", "2018/02/08 09:20", "Now Public", "Registered", 0);
+        a = new Question ("Now Public", "[Q] Agree/Disagree*", "2018/02/08 06:10", "Now Public", "Registered", 0);
         questionList.add(a);
 
-        a = new Question ("Now Public", "[Q] Agree/Disagree*", "2018/02/08 09:20", "Now Public", "Registered", 0);
+        a = new Question ("Now Public", "[Q] Agree/Disagree*", "2018/02/09 09:20", "Now Public", "Registered", 0);
         questionList.add(a);
         a = new Question ("Now Public", "[Q] Four Choices*", "2018/02/08 09:20", "Now Public", "Registered", 0);
         questionList.add(a);
@@ -97,41 +115,6 @@ public class Activity_Question extends AppCompatActivity {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
-
-    private void closeQuickButton() {
-        quickButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                quick_layout.setVisibility(View.GONE);
-                openQuickButton();
-            }
-        });
-    }
-
-    private void openQuickButton() {
-        quickButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                quick_layout.setVisibility(View.VISIBLE);
-
-                //Yeo No button
-                Button myYeoNoButton = findViewById(R.id.yesNo);
-                myYeoNoButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Activity_Question.this,YesNo_Chart.class);
-                        startActivity(intent);
-                    }
-                });
-
-                Button myYeoNoCommentButton = findViewById(R.id.yesNoComment);
-                myYeoNoCommentButton.setOnClickListener(this);
-
-                closeQuickButton();
-            }
-        });
-    }
-
 
     /**
      * RecyclerView item decoration - give equal margin around grid item
@@ -170,6 +153,42 @@ public class Activity_Question extends AppCompatActivity {
             }
         }
     }
+
+    /*  private void closeQuickButton() {
+        quickButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quick_layout.setVisibility(View.GONE);
+                openQuickButton();
+            }
+        });
+    }
+
+    private void openQuickButton() {
+        quickButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quick_layout.setVisibility(View.VISIBLE);
+
+                //Yeo No button
+                Button myYeoNoButton = findViewById(R.id.yesNo);
+                myYeoNoButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Activity_Question.this,YesNo_Chart.class);
+                        startActivity(intent);
+                    }
+                });
+
+                Button myYeoNoCommentButton = findViewById(R.id.yesNoComment);
+                myYeoNoCommentButton.setOnClickListener(this);
+
+                closeQuickButton();
+            }
+        });
+    }
+
+*/
 
 }
 
