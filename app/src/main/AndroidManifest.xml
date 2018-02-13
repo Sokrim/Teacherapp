@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kit.c_learning.teacherapp">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -19,14 +19,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".Questionnaires" />
-        <activity android:name=".Activity_Question"
-            android:parentActivityName=".Questionnaires"></activity>
-
-        <activity android:name=".DemoActivity"
-            android:parentActivityName=".Activity_Question"></activity>
-
-        <activity android:name=".YesNo_Chart"
-            android:parentActivityName=".Activity_Question"></activity>
+        <activity
+            android:name=".Activity_Question"
+            android:parentActivityName=".Questionnaires" />
+        <activity
+            android:name=".DemoActivity"
+            android:parentActivityName=".Activity_Question" />
+        <activity
+            android:name=".YesNo_Chart"
+            android:parentActivityName=".Activity_Question" />
+        <activity android:name=".ChartActivity" />
+        <activity android:name=".BarChart"></activity>
     </application>
 
 </manifest>

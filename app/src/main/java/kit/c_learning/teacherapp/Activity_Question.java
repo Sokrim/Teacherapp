@@ -1,24 +1,29 @@
 package kit.c_learning.teacherapp;
 
-
-import android.app.Dialog;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 public class Activity_Question extends AppCompatActivity {
@@ -31,7 +36,10 @@ public class Activity_Question extends AppCompatActivity {
     private RecyclerView recyclerView;
     private QuestionAdapter adapter;
     private List<Question> questionList;
+    String[] questionTitle = null,publishDate=null,qbID = null;
+    JSONObject jsonObject =null,success=null;
 
+    @SuppressLint("LongLogTag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +48,6 @@ public class Activity_Question extends AppCompatActivity {
         setSupportActionBar(questionnairesToolbar);
         getSupportActionBar().setTitle("Questionnaires");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         recyclerView = findViewById(R.id.recycler_view);
 
@@ -53,7 +60,9 @@ public class Activity_Question extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        prepareQuestion();
+
+        //request api
+        requestApi();
 
 
         //When click on quick questionnaires button & create questionnaires
@@ -91,24 +100,60 @@ public class Activity_Question extends AppCompatActivity {
         });
     }
 
-    private void prepareQuestion() {
-        Question a = new Question ("Now Public", "[Q] Yes/No", "2018/02/09 10:20", "Non-disclosure", "Anonymous", 2);
-        questionList.add(a);
-
-        a = new Question ("Non-disclosure", "[Q] Agree/Disagree", "2018/02/12 09:20", "Now Public", "", 0);
-        questionList.add(a);
-
-        a = new Question ("Non-disclosure", "[Q] Agree/Disagree C- learning is good", "2018/02/08 09:20", "Now Public", "", 0);
-        questionList.add(a);
-
-        a = new Question ("Now Public", "[Q] Agree/Disagree*", "2018/02/08 06:10", "Now Public", "Registered", 0);
-        questionList.add(a);
-
-        a = new Question ("Now Public", "[Q] Agree/Disagree*", "2018/02/09 09:20", "Now Public", "Registered", 0);
-        questionList.add(a);
-        a = new Question ("Now Public", "[Q] Four Choices*", "2018/02/08 09:20", "Now Public", "Registered", 0);
+    private void prepareQuestion(String questionTitle,String publishDate) {
+        Question a = new Question ("Now Public", questionTitle, publishDate, "Non-disclosure", "Anonymous", 2);
         questionList.add(a);
         adapter.notifyDataSetChanged();
+    }
+
+    @SuppressLint("LongLogTag")
+    private void requestApi(){
+        android.util.ArrayMap<String, String> headers = new android.util.ArrayMap<>();
+        android.util.ArrayMap<String, String> data = new android.util.ArrayMap<>();
+
+        HttpRequestAsync myHttp = new HttpRequestAsync(headers);
+        try {
+            String text= myHttp.execute("https://kit.c-learning.jp/t/ajax/quest/Question", "GET").get();
+            System.out.println("=========================================123 " + text);
+
+            jsonObject = new JSONObject(text);
+            Log.d("json object----------------",jsonObject.toString());
+
+            JSONArray jsonArray = jsonObject.getJSONArray("data");
+            Log.d("mer json array¥--------------",jsonArray.toString());
+
+            questionTitle = new String[jsonArray.length()];
+            publishDate = new String[jsonArray.length()];
+            qbID = new String[jsonArray.length()];
+            Log.d("langht of the value=========", String.valueOf(questionTitle.length));
+
+            for(int i = 0; i< jsonArray.length(); i++){
+                JSONObject row = jsonArray.getJSONObject(i);
+                questionTitle[i] = row.getString("qbTitle");
+                publishDate[i] =row.getString("qbDate");
+                qbID[i] = row.getString("qbID");
+                Log.d("view qbID=======================",qbID[i]);
+//                Log.d("string value ---------------", questionTitle[i]);
+//                Log.d("string value ---------------", publishDate[i]);
+//                Log.d("lenght of value-------------", String.valueOf(questionTitle[i].length()));
+                prepareQuestion(questionTitle[i],publishDate[i]);
+
+//                for(int j =0;j<value[i].length();j++){
+//                    Log.d("value of length^^^^^^^^", String.valueOf(value.length));
+//                    prepareQuestion(value[i]);
+//                }
+            }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Log.e("eerorror1---------",e.toString());
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            Log.e("eerorror2---------",e.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e("eerorror3---------",e.toString());
+        }
     }
 
     private int dpToPx(int dp) {
@@ -153,42 +198,6 @@ public class Activity_Question extends AppCompatActivity {
             }
         }
     }
-
-    /*  private void closeQuickButton() {
-        quickButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                quick_layout.setVisibility(View.GONE);
-                openQuickButton();
-            }
-        });
-    }
-
-    private void openQuickButton() {
-        quickButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                quick_layout.setVisibility(View.VISIBLE);
-
-                //Yeo No button
-                Button myYeoNoButton = findViewById(R.id.yesNo);
-                myYeoNoButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Activity_Question.this,YesNo_Chart.class);
-                        startActivity(intent);
-                    }
-                });
-
-                Button myYeoNoCommentButton = findViewById(R.id.yesNoComment);
-                myYeoNoCommentButton.setOnClickListener(this);
-
-                closeQuickButton();
-            }
-        });
-    }
-
-*/
 
 }
 

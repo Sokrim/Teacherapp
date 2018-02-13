@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 public class Questionnaires extends AppCompatActivity implements View.OnClickListener{
 
     Toolbar myCourseToolbar;
-    private CardView questionCard, quizCard;
+    private CardView questionCard, quizCard,attendance;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -35,14 +35,20 @@ public class Questionnaires extends AppCompatActivity implements View.OnClickLis
         quizCard = findViewById(R.id.quiz_card);
         quizCard.setOnClickListener(this);
 
+        attendance = findViewById(R.id.attendanceTracking);
+        attendance.setOnClickListener(this);
+
 
         ArrayMap<String, String> headers = new ArrayMap<>();
         ArrayMap<String, String> data = new ArrayMap<>();
+        data.put("qb","qb04874738");
+        data.put("com","1");
+        data.put("mode","ALL");
 
-        HttpRequestAsync myHttp = new HttpRequestAsync(headers);
+        HttpRequestAsync myHttp = new HttpRequestAsync(headers,data);
         try {
-            String text= myHttp.execute("https://reqres.in/api/users/2", "GET").get();
-            System.out.println("========================================= " + text);
+            String text= myHttp.execute("https://kit.c-learning.jp/t/ajax/quest/Bent", "POST").get();
+            System.out.println("=========================================123 " + text);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -60,6 +66,9 @@ public class Questionnaires extends AppCompatActivity implements View.OnClickLis
             case R.id.quiz_card : intent = new Intent(this, DemoActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.attendanceTracking : intent = new Intent(this,BarChart.class);
+                startActivity(intent);
+
             default:break;
 
         }

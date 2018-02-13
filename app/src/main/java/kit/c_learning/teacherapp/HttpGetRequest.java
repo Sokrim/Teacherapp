@@ -1,8 +1,7 @@
 package kit.c_learning.teacherapp;
 
-import android.annotation.TargetApi;
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.util.ArrayMap;
 import android.util.Log;
 
@@ -20,11 +19,10 @@ import java.net.URLEncoder;
 import java.util.Iterator;
 
 /**
- * Created by sokrim on 2/7/2018.
+ * Created by kit on 2/10/18.
  */
 
-@TargetApi(Build.VERSION_CODES.KITKAT)
-public class HttpRequestAsync extends   AsyncTask<String, Void, String> {
+public class HttpGetRequest extends AsyncTask<String, Void, String> {
     private static final int READ_TIMEOUT = 3000;
     private static final int CONNECTION_TIMEOUT = 3000;
     private String result;
@@ -32,15 +30,15 @@ public class HttpRequestAsync extends   AsyncTask<String, Void, String> {
     private ArrayMap<String, String> data = new ArrayMap<>();
     private JSONObject jsonParam = new JSONObject();
 
-    public HttpRequestAsync(){
+    public HttpGetRequest(){
         this(null);
     }
 
-    HttpRequestAsync(ArrayMap<String, String> header_params){
+    HttpGetRequest(ArrayMap<String, String> header_params){
         this(header_params, null);
     }
 
-    HttpRequestAsync(ArrayMap<String, String> header_params, ArrayMap<String, String> data_params){
+    HttpGetRequest(ArrayMap<String, String> header_params, ArrayMap<String, String> data_params){
 
 
         if (header_params != null && !header_params.isEmpty()){
@@ -66,10 +64,11 @@ public class HttpRequestAsync extends   AsyncTask<String, Void, String> {
         }
     }
 
+    @SuppressLint("LongLogTag")
     @Override
     protected String doInBackground(String... params){
         String stringUrl = params[0];
-        String method = params.length > 1 ? params[1] : "GET";
+        String method = params.length > 1 ? params[1] : "POST";
         String inputLine;
 
         try {
@@ -93,6 +92,11 @@ public class HttpRequestAsync extends   AsyncTask<String, Void, String> {
                     connection.setDoOutput(false);
                     break;
                 case "POST":
+                    Log.e("mer method post ----------------","-----------");
+
+                    connection.setRequestProperty("qb","qbID");
+                    connection.setRequestProperty("com","0");
+                    connection.setRequestProperty("mode","All");
                     connection.setDoInput(true);
                     connection.setDoOutput(true);
                     break;
@@ -207,5 +211,4 @@ public class HttpRequestAsync extends   AsyncTask<String, Void, String> {
         }
         return result.toString();
     }
-
 }
