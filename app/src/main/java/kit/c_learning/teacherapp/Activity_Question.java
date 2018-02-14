@@ -1,9 +1,13 @@
 package kit.c_learning.teacherapp;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -29,14 +33,20 @@ import java.util.concurrent.ExecutionException;
 public class Activity_Question extends AppCompatActivity {
 
     Toolbar questionnairesToolbar;
-    Button quickButton, yesNoButton, yesNoButtonComment;
-  //  LinearLayout quick_layout;
+    Button quickButton,
+            yesNoButton, yesNoButtonComment,
+            agreeDisagree,agreeDisagreeComment,
+            twoChoice,twoChoiceComment,
+            threeChoice,threeChoiceComment,
+            fourChoice,fourChoiceComment,fiveChoice,
+            fiveChoiceComment,commentOnly;
 
 
     private RecyclerView recyclerView;
     private QuestionAdapter adapter;
     private List<Question> questionList;
     String[] questionTitle = null,publishDate=null,qbID = null;
+    public static String[] questionType = null, questionID = null, questionComment = null, qbTitle = null;
     JSONObject jsonObject =null,success=null;
 
     @SuppressLint("LongLogTag")
@@ -59,11 +69,8 @@ public class Activity_Question extends AppCompatActivity {
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(1, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-
-
         //request api
         requestApi();
-
 
         //When click on quick questionnaires button & create questionnaires
 
@@ -81,30 +88,64 @@ public class Activity_Question extends AppCompatActivity {
         }*/
     }
 
+    //check internet connection
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
     private  void displayQuickDialog(){
         Dialog d = new Dialog(this);
         d.setContentView(R.layout.test);
+
         d.show();
         Window window = d.getWindow();
         window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
 
-        yesNoButton = d.findViewById(R.id.yesNo);
-        yesNoButton.setOnClickListener(new View.OnClickListener() {
+      /*  yesNoButton = d.findViewById(R.id.yesNo);
+        yesNoButtonComment = d.findViewById(R.id.yesNoComment);
+        agreeDisagree = d.findViewById(R.id.agreeDisagree);
+        agreeDisagreeComment = d.findViewById(R.id.agreeDisagreeComment);
+        twoChoice = d.findViewById(R.id.twoChoice);
+        twoChoiceComment = d.findViewById(R.id.twoChoiceComment);
+        threeChoice = d.findViewById(R.id.threeChoice);
+        threeChoiceComment = d.findViewById(R.id.threeChoiceComment);
+        fourChoice = d.findViewById(R.id.fourChoice);
+
+        fourChoiceComment = d.findViewById(R.id.fourChoiceComment);
+        fiveChoice = d.findViewById(R.id.fiveChoice);
+        fiveChoiceComment = d.findViewById(R.id.fiveChoiceComment);
+        commentOnly = d.findViewById(R.id.commentOnly);
+
+        navigateScreen(yesNoButton,Pie_Chart.class);
+        navigateScreen(yesNoButtonComment,Pie_Chart.class);
+        navigateScreen(agreeDisagree,AgreeDisagree_PieChart.class);
+        navigateScreen(agreeDisagreeComment,AgreeDisagree_PieChart.class);
+        navigateScreen(twoChoice,Pie_Chart_Comment.class);
+        navigateScreen(twoChoiceComment,Pie_Chart_Comment.class);
+        navigateScreen(threeChoice,Bar_Chart.class);
+        navigateScreen(threeChoiceComment,Bar_Chart.class);
+        navigateScreen(fourChoice,FourChoice_BarChart.class);
+        navigateScreen(fourChoiceComment,FourChoice_BarChart.class);
+        navigateScreen(fiveChoice,FiveChoices_BarChart.class);
+        navigateScreen(fiveChoiceComment,FiveChoices_BarChart.class);
+        navigateScreen(commentOnly,Comment_Only.class);*/
+
+    }
+
+    private void navigateScreen(Button btn, final Class next) {
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Activity_Question.this, YesNo_Chart.class);
-                startActivity(i);
+            public void onClick(View view) {
+                Intent intent = new Intent(Activity_Question.this, next);
+                startActivity(intent);
             }
         });
     }
 
-    private void prepareQuestion(String questionTitle,String publishDate) {
-        Question a = new Question ("Now Public", questionTitle, publishDate, "Non-disclosure", "Anonymous", 2);
-        questionList.add(a);
-        adapter.notifyDataSetChanged();
-    }
 
     @SuppressLint("LongLogTag")
     private void requestApi(){
@@ -125,6 +166,11 @@ public class Activity_Question extends AppCompatActivity {
             questionTitle = new String[jsonArray.length()];
             publishDate = new String[jsonArray.length()];
             qbID = new String[jsonArray.length()];
+            questionType = new String[jsonArray.length()];
+            questionID = new String[jsonArray.length()];
+            questionComment = new String[jsonArray.length()];
+            qbTitle = new String[jsonArray.length()];
+
             Log.d("langht of the value=========", String.valueOf(questionTitle.length));
 
             for(int i = 0; i< jsonArray.length(); i++){
@@ -132,16 +178,13 @@ public class Activity_Question extends AppCompatActivity {
                 questionTitle[i] = row.getString("qbTitle");
                 publishDate[i] =row.getString("qbDate");
                 qbID[i] = row.getString("qbID");
+                questionType[i] = row.getString("qbQuickMode");
+                questionID[i] = row.getString("qbID");
+                questionComment[i] = row.getString("qbComment");
+                qbTitle[i] = row.getString("qbTitle");
                 Log.d("view qbID=======================",qbID[i]);
-//                Log.d("string value ---------------", questionTitle[i]);
-//                Log.d("string value ---------------", publishDate[i]);
-//                Log.d("lenght of value-------------", String.valueOf(questionTitle[i].length()));
+                Log.d("string value ---------------", questionTitle[i]);
                 prepareQuestion(questionTitle[i],publishDate[i]);
-
-//                for(int j =0;j<value[i].length();j++){
-//                    Log.d("value of length^^^^^^^^", String.valueOf(value.length));
-//                    prepareQuestion(value[i]);
-//                }
             }
 
         } catch (InterruptedException e) {
@@ -160,6 +203,13 @@ public class Activity_Question extends AppCompatActivity {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
+
+    private void prepareQuestion(String questionTitle,String publishDate) {
+        Question a = new Question ("Now Public", questionTitle, publishDate, "Non-disclosure", "Anonymous", 2);
+        questionList.add(a);
+        adapter.notifyDataSetChanged();
+    }
+
 
     /**
      * RecyclerView item decoration - give equal margin around grid item

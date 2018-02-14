@@ -66,7 +66,7 @@ public class Questionnaires extends AppCompatActivity implements View.OnClickLis
             case R.id.quiz_card : intent = new Intent(this, DemoActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.attendanceTracking : intent = new Intent(this,BarChart.class);
+            case R.id.attendanceTracking : intent = new Intent(this,Bar_Chart.class);
                 startActivity(intent);
 
             default:break;

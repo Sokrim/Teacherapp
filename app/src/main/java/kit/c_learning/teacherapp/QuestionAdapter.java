@@ -4,6 +4,7 @@ package kit.c_learning.teacherapp;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,6 +26,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
 
     private Context mContext;
     private List<Question> questionList;
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.question_card, parent,false);
@@ -33,7 +35,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        Question question = questionList.get(position);
+        final Question question = questionList.get(position);
+        final int pos = position;
         holder.displayPublic.setText(question.getDisplayPublic());
         holder.title_quickQuestion.setText(question.getTitle_quickQuestion());
         holder.registeredDate.setText(question.getRegisteredDate());
@@ -43,10 +46,87 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
 
 
         holder.title_quickQuestion.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext,YesNo_Chart.class);
-                mContext.startActivity(intent);
+                System.out.println("+++++++++++" + pos);
+                System.out.println("+++++++++++" + Activity_Question.questionType.length);
+                for (int i=0; i<Activity_Question.questionType.length; i++)
+                    Log.e("============= ", Activity_Question.questionType[i]);
+
+                System.out.println("*********** " + Activity_Question.questionType[pos]);
+
+                //Pie Chart No comment
+                if (Activity_Question.questionType[pos].equals("22") || Activity_Question.questionType[pos].equals("24")
+                        || Activity_Question.questionType[pos].equals("20")){
+                   // System.out.println("--------------- 22 --------------------");
+                    Intent intent = new Intent(mContext, Pie_Chart.class);
+                    intent.putExtra("id", Activity_Question.questionID[pos]);
+                    intent.putExtra("comment", Activity_Question.questionComment[pos]);
+
+
+                    if (Activity_Question.questionType[pos].equals("22")){
+                        intent.putExtra("qbTitle", Activity_Question.qbTitle[pos]);
+                    }
+                    else if (Activity_Question.questionType[pos].equals("24")) {
+                        intent.putExtra("qbTitle", Activity_Question.qbTitle[pos]);
+
+                    }
+                    else if (Activity_Question.questionType[pos].equals("20")) {
+                        intent.putExtra("qbTitle", Activity_Question.qbTitle[pos]);
+                    }
+
+                    mContext.startActivity(intent);
+                }
+                //Pie Chart comment
+                else if (Activity_Question.questionType[pos].equals("23") || Activity_Question.questionType[pos].equals("25")
+                        || Activity_Question.questionType[pos].equals("21")){
+                    // System.out.println("--------------- 22 --------------------");
+                    Intent intent = new Intent(mContext, Pie_Chart.class);
+                    intent.putExtra("id", Activity_Question.questionID[pos]);
+                    intent.putExtra("comment", Activity_Question.questionComment[pos]);
+
+
+                    if (Activity_Question.questionType[pos].equals("23")){
+                        intent.putExtra("qbTitle", Activity_Question.qbTitle[pos]);
+                    }
+                    else if (Activity_Question.questionType[pos].equals("25")) {
+                        intent.putExtra("qbTitle", Activity_Question.qbTitle[pos]);
+                    }
+                    else if (Activity_Question.questionType[pos].equals("21")) {
+                        intent.putExtra("qbTitle", Activity_Question.qbTitle[pos]);
+                    }
+                    mContext.startActivity(intent);
+                }
+                //Choices Comment Bar chart
+                else if (Activity_Question.questionType[pos].equals("30") || Activity_Question.questionType[pos].equals("40")
+                        || Activity_Question.questionType[pos].equals("50")){
+                   // System.out.println("--------------- 31 --------------------");
+                    Intent intent = new Intent(mContext, Bar_Chart.class);
+                    intent.putExtra("id", Activity_Question.questionID[pos]);
+                    intent.putExtra("comment", Activity_Question.questionComment[pos]);
+
+                    if (Activity_Question.questionType[pos].equals("40")){
+                        intent.putExtra("qbTitle", Activity_Question.qbTitle[pos]);
+                    }
+                     else if (Activity_Question.questionType[pos].equals("50")) {
+                        intent.putExtra("qbTitle", Activity_Question.qbTitle[pos]);
+                    }
+                    else if (Activity_Question.questionType[pos].equals("30")) {
+                        intent.putExtra("qbTitle", Activity_Question.qbTitle[pos]);
+                    }
+                    mContext.startActivity(intent);
+                }
+
+                //Choices No Comment  Bar chart
+                else if (Activity_Question.questionType[pos].equals("31") || Activity_Question.questionType[pos].equals("41")
+                        || Activity_Question.questionType[pos].equals("51")){
+                    // System.out.println("--------------- 31 --------------------");
+                    Intent intent = new Intent(mContext, Bar_Chart.class);
+                    intent.putExtra("id", Activity_Question.questionID[pos]);
+                    intent.putExtra("comment", Activity_Question.questionComment[pos]);
+                    mContext.startActivity(intent);
+                }
             }
         });
 
@@ -105,7 +185,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         public TextView displayPublic, registeredDate, title_quickQuestion, Guest, openTotalResult , Submission;
-        public ImageView previewIcon, editQuestionIcon;
+        public ImageView previewIcon;
         public LinearLayout layout;
 
         public MyViewHolder(View view) {

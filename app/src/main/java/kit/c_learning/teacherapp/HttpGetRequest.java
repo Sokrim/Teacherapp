@@ -121,7 +121,6 @@ public class HttpGetRequest extends AsyncTask<String, Void, String> {
                     BufferedWriter writer = new BufferedWriter(
                             new OutputStreamWriter(os, "UTF-8"));
                     writer.write(getPostDataString(jsonParam));
-
                     writer.flush();
                     writer.close();
                     os.close();

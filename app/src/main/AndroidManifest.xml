@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kit.c_learning.teacherapp">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -26,10 +27,23 @@
             android:name=".DemoActivity"
             android:parentActivityName=".Activity_Question" />
         <activity
-            android:name=".YesNo_Chart"
+            android:name=".Pie_Chart"
             android:parentActivityName=".Activity_Question" />
-        <activity android:name=".ChartActivity" />
-        <activity android:name=".BarChart"></activity>
+
+        <activity android:name=".Bar_Chart"
+            android:parentActivityName=".Activity_Question"/>
+        <activity android:name=".YesNoComment_PieChart"
+            android:parentActivityName=".Activity_Question"/>
+        <activity android:name=".AgreeDisagree_PieChart"
+            android:parentActivityName=".Activity_Question"/>
+        <activity android:name=".Pie_Chart_Comment"
+            android:parentActivityName=".Activity_Question"/>
+        <activity android:name=".FourChoice_BarChart"
+            android:parentActivityName=".Activity_Question"/>
+        <activity android:name=".FiveChoices_BarChart"
+            android:parentActivityName=".Activity_Question"/>
+        <activity android:name=".Comment_Only"
+            android:parentActivityName=".Activity_Question"></activity>
     </application>
 
 </manifest>
